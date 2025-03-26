@@ -24,8 +24,8 @@ The algorithm is as follows:
 4. The optimal policy can be constructed by taking the **argmax** of the action-value function `Q(s, a)` over all actions `a`.
 5. Return the optimal policy and the optimal value function.
 ## VALUE ITERATION FUNCTION
-#### Name: NATHIN R
-#### Register Number:212222230090
+#### Name: Iyyanar S
+#### Register Number:212222240036
 ```
 envdesc  = ['SFFF', 'FHFH', 'FFFH', 'HFFG']
 env = gym.make('FrozenLake-v1',desc=envdesc)
@@ -57,10 +57,13 @@ def value_iteration(P, gamma=1.0, theta=1e-10):
 ```
 ## OUTPUT:
 #### Optimal Pollicy
+![image](https://github.com/user-attachments/assets/7277b627-e32b-4d54-be85-c896973f82e3)
 
 #### Optimal Value Function
+![image](https://github.com/user-attachments/assets/3b49da7e-ce2f-45da-96a4-a50da6e3701e)
 
 #### Success Rate
+![image](https://github.com/user-attachments/assets/6d643e38-b365-4ddb-a100-71bd85dda9ee)
 
 ## RESULT:
 Thus, a Python program is developed to find the optimal policy for the given MDP using the value iteration algorithm.
