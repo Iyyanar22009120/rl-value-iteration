@@ -27,25 +27,32 @@ The algorithm is as follows:
 #### Name: NATHIN R
 #### Register Number:212222230090
 ```
-envdesc = ['FFFH','FSFF','FHFF','GFFF']
+envdesc  = ['SFFF', 'FHFH', 'FFFH', 'HFFG']
 env = gym.make('FrozenLake-v1',desc=envdesc)
 init_state = env.reset()
-goal_state = 12
+goal_state = 15
 P = env.env.P
 ```
 ```
 def value_iteration(P, gamma=1.0, theta=1e-10):
     V = np.zeros(len(P), dtype=np.float64)
     while True:
-        Q = np.zeros((len(P), len(P[0])), dtype=np.float64)
+        delta = 0
         for s in range(len(P)):
+            v = V[s]
+            action_values = []
             for a in range(len(P[s])):
+                action_value = 0
                 for prob, next_state, reward, done in P[s][a]:
-                    Q[s][a] += prob * (reward + gamma * V[next_state] * (1.0 - done))
-        if np.max(np.abs(V - np.max(Q, axis=1))) < theta:
+                    action_value += prob * (reward + gamma * V[next_state] * (not done))
+                action_values.append(action_value)
+            V[s] = max(action_values)
+            delta = max(delta, np.abs(v - V[s]))
+        if delta < theta:
             break
-        V = np.max(Q, axis=1)
-        pi= lambda s: {s: a for s, a in enumerate(np.argmax(Q, axis=1))}[s]
+
+    pi = lambda s: np.argmax([sum([p * (r + gamma * V[s_]) for p, s_, r, _ in P[s][a]]) for a in range(len(P[s]))])
+
     return V, pi
 ```
 ## OUTPUT:
